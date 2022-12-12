@@ -1,1 +1,5 @@
-[![LinearBezierDemo1](https://i.ytimg.com/vi/v8T3YBQ2zBM/maxresdefault.jpg)](https://youtu.be/v8T3YBQ2zBM "LinearBezierDemo1")
+
+![Alt Text](videos/linearbezier_demo1.gif)
+![Alt Text](videos/linearbezier_demo2.gif)
+![Alt Text](videos/linearbezier_demo3.gif)
+![Alt Text](videos/linearbezier_demo4.gif)
