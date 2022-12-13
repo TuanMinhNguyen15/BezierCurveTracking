@@ -128,13 +128,23 @@ In this demo, a mobile robot needs to track a stair-like path. The goal is NOT t
 
 In the first scenario, the robot is intially on the path and heading toward the correct direction. Notice that at the 90-degrees turns, the robot always satify its minimum turning radius, which is set to $0.1$
 
-![Alt Text](videos/linearbezier_demo1.gif)
+<p align="center">
+  <img src="videos/linearbezier_demo1.gif" />
+</p>
 
 In the next 3 scenarios, the robot is NOT placed on the path and is initially headed in the wrong direction. The path planner successfully drives the robot to smoothly approach the target path.
 
-![Alt Text](videos/linearbezier_demo2.gif)
-![Alt Text](videos/linearbezier_demo3.gif)
-![Alt Text](videos/linearbezier_demo4.gif)
+<p align="center">
+  <img src="videos/linearbezier_demo2.gif" />
+</p>
+
+<p align="center">
+  <img src="videos/linearbezier_demo3.gif" />
+</p>
+
+<p align="center">
+  <img src="videos/linearbezier_demo4.gif" />
+</p>
 
 ## 6. Work-in-Progress and Future Work
 Currently, only linear bezier is implemented which, I believe, is enough to construct most paths in mobile robot applications. Quadratic and cubic Bezier curves are in progress. 
