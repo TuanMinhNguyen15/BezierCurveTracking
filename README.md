@@ -1,5 +1,9 @@
 # Bezier Curves Tracking with Application in Mobile Robots
 
+<p align="center">
+  <img src="videos/thumbnail_demo.gif" />
+</p>
+
 ## 1. Problem Statement
 
 In mobile robot applications, it is often the case that we already setup a network of roads for robots. The road network can be used as a graph for a graph-based search algorithm such as A*, which would find a feasible path for a robot to reach its destination. Now, the remaining problem is that:

@@ -1,6 +1,6 @@
 float x_origin;
 float y_origin;
-float scaling = 500;
+float scaling = 200;
 Point p_origin = new Point();
 
 String[] config_data;
@@ -128,8 +128,8 @@ void draw_robot(int step){
 
 void setup(){
   size(1500, 1000);
-  x_origin = 200;
-  y_origin = height/2 + 200;
+  x_origin = 300;
+  y_origin = height/2 + 100;
   p_origin.x = x_origin;
   p_origin.y = y_origin;
   
@@ -141,11 +141,6 @@ void setup(){
   num_curves = Integer.parseInt(config_data[0]);
   tsteps     = Integer.parseInt(config_data[1]);
   horizon    = Integer.parseInt(config_data[2]);
-  
-  println("num_curves: "+num_curves+" , tsteps: "+tsteps+" , horizon: "+horizon);
-  println(map_data.length);
-  println(planner_data.length);
-  println(robot_data.length);
   
 }
 
@@ -159,9 +154,6 @@ void draw(){
     
     if (recording){
       saveFrame("frames/sim_####.png");
-    }
-    
+    } 
   }
-  
-
 }

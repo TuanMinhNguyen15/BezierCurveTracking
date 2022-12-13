@@ -18,19 +18,33 @@ int main(){
     // Line2
     line_params.x_start = 1;
     line_params.y_start = 0;
-    line_params.x_end   = 1;
-    line_params.y_end   = 1;
+    line_params.x_end   = 2;
+    line_params.y_end   = 2;
     LinearBezier Line2(line_params);
 
     // Line3
-    line_params.x_start = 1;
-    line_params.y_start = 1;
-    line_params.x_end   = 2;
-    line_params.y_end   = 1;
+    line_params.x_start = 2;
+    line_params.y_start = 2;
+    line_params.x_end   = 3;
+    line_params.y_end   = -1;
     LinearBezier Line3(line_params);
 
+    // Line4
+    line_params.x_start = 3;
+    line_params.y_start = -1;
+    line_params.x_end   = 4;
+    line_params.y_end   = 0;
+    LinearBezier Line4(line_params);
+
+    // Line5
+    line_params.x_start = 4;
+    line_params.y_start = 0;
+    line_params.x_end   = 5;
+    line_params.y_end   = 0;
+    LinearBezier Line5(line_params);
+
     // Create Map
-    Map map({&Line1,&Line2,&Line3});
+    Map map({&Line1,&Line2,&Line3,&Line4,&Line5});
 
     // Setup Path Planner
     PathPlanner::Params planner_params;
@@ -46,10 +60,12 @@ int main(){
     PathPlanner planner(planner_params);
     PathPlanner::Trajectory trajectory;
 
+
+
     // Simulation
     FILE* data_points;
     FILE *config_data,*map_data,*robot_data,*planner_data;
-    int tsteps = 300;
+    int tsteps = 900;
     float x_current,y_current,theta_current;
     float vx,vy;
     float x_next,y_next,theta_next;
@@ -125,20 +141,4 @@ int main(){
     fclose(planner_data);
     fclose(data_points);
 
-
-    // std::cout << "angle = " << planner.find_angle(-1,1,-1,-1) << std::endl;
-    
-
-
-    // trajectory = planner.tracking(x_current,y_current,theta_current);
-    // for (auto pos : trajectory.pos){
-    //     // std::cout << "x = " << pos[0] << " , y = " << pos[1] << std::endl;
-    //     fprintf(data_points, "%f %f\n",pos[0],pos[1]);
-    // }
-
-
-
-    // float x,y;
-    // planner.params_.map->get_velocity(.5,1,x,y);
-    // std::cout << x << " , " << y << std::endl;
 }
