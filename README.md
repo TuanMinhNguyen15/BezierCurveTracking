@@ -72,6 +72,7 @@ By specifying the control points and combining Bezier curves piecewise, we can f
  Let $P_x = h(\lambda)$ and $P_y = k(\lambda)$
 
  $$ \dot{P_x} = \frac{dh}{d\lambda}*\dot{\lambda} $$
+ 
  $$ \dot{P_y} = \frac{dk}{d\lambda}*\dot{\lambda} $$
 
  Given we want the pursuee (ideal robot) to have a velocity $V$
