@@ -38,7 +38,7 @@ Notice that the smaller the robot's mininum turning radius $R_{min}$, the larger
 Therefore, if the pursuer's velocity vector exceeds the maximum allowed deviation from its current heading, then we can just clamp the velocity vector at the max allowed direction. This will ensure the robot's minimum turning radius to be satisfied at all time. 
 
 ## 3. Bezier Curves
-Now that a robot can asymptotically converge to its "ideal" version using the dynamics of pursuit curves. The next step is to formulate the path of the ideal robot. The path of the pursee (ideal robot) can be easily specfied using [Bezier curves](https://en.wikipedia.org/wiki/B%C3%A9zier_curve). In short, a Bezier curve is a smooth parametric curve which is defined by a set of control points. Points ($P$) along a Bezier curve can be expressed by an equation of a parametric variable ($\lambda$) and control points ($P_0,P_1,...$). 
+Now that a robot can asymptotically converge to its "ideal" version using the dynamics of pursuit curves. The next step is to formulate the path of the ideal robot. The path of the pursee (ideal robot) can be easily specfied using [Bezier curves](https://en.wikipedia.org/wiki/B%C3%A9zier_curve). In short, a Bezier curve is a smooth parametric curve which is defined by a set of control points. Points ($P$) along a Bezier curve can be expressed by an equation of a parametric variable \($\lambda$\) and control points ($P_0,P_1,...$). 
 
 $$P = f(\lambda,P_0,P_1,...)$$
 
