@@ -1,10 +1,14 @@
 #pragma once
 #include <cmath>
+#include <vector>
+#include <string>
 
 class Obstacle{
     public:
         virtual float evaluate(float x, float y) = 0;
         virtual void gradient(float x, float y, float &gx, float &gy) = 0;
+        virtual std::vector<float> properties() = 0;
+        virtual std::string shape() = 0;
         bool is_collided(float x, float y);
 
     private:
@@ -22,6 +26,8 @@ class Circle : public Obstacle {
 
         float evaluate(float x, float y) override;
         void  gradient(float x, float y, float &gx, float &gy) override;
+        std::vector<float> properties() override;
+        std::string shape() override;
 
     private:
         Params params_;

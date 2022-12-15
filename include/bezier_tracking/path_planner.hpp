@@ -16,7 +16,9 @@ class PathPlanner{
             float distance_cost = 1;
             float heading_cost  = 1;
             float smooth_cost   = 1;
-            Obstacle* obstacle;
+
+            std::vector<Obstacle*> obstacles;
+            float reactivity = 1;
         };
 
         struct Trajectory{

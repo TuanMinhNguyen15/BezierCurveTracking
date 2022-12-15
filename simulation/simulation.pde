@@ -7,6 +7,7 @@ String[] config_data;
 String[] map_data;
 String[] planner_data;
 String[] robot_data;
+String[] obstacles_data;
 
 float[] linear_bezier = {0,0,0,0};
 float[] quadratic_bezier = {0,0,0,0,0,0};
@@ -15,6 +16,7 @@ float[] cubic_bezier = {0,0,0,0,0,0,0,0};
 int num_curves;
 int tsteps;
 int horizon;
+int num_obstacles;
 
 int tstep = 0;
 boolean recording = true;
@@ -77,6 +79,17 @@ void draw_rect(float x,float y,float theta,float w,float h){
   
 }
 
+void draw_circle(float x, float y, float r){
+  Point p = new Point();
+  p.x = x;
+  p.y = y;
+  
+  p = transform(p);
+  r = r*scaling;
+  
+  circle(p.x,p.y,2*r);
+}
+
 void draw_map(){
   strokeWeight(7);
   
@@ -121,26 +134,49 @@ void draw_planner(int step){
 }
 
 void draw_robot(int step){
+  fill(255);
   String[] data_line;
   data_line = robot_data[step].split(",");
   draw_rect(Float.parseFloat(data_line[0]),Float.parseFloat(data_line[1]),Float.parseFloat(data_line[2]),0.2,0.1);
+  noFill();
+}
+
+void draw_obstacles(){
+  fill(195,255,50);
+  int index = 0;
+  String obstacle_shape;
+  for (int i = 0;i < num_obstacles;i++){
+    obstacle_shape = obstacles_data[index];
+    switch(obstacle_shape){
+       case "circle":
+         draw_circle(Float.parseFloat(obstacles_data[index+1]),Float.parseFloat(obstacles_data[index+2]),Float.parseFloat(obstacles_data[index+3])); 
+         index = index + 4;
+         break;
+         
+       default:
+         break;
+    }
+  }
+  noFill();
 }
 
 void setup(){
   size(1500, 1000);
-  x_origin = 300;
-  y_origin = height/2 + 100;
+  x_origin = 150;
+  y_origin = height/2;
   p_origin.x = x_origin;
   p_origin.y = y_origin;
   
-  config_data  = loadStrings("config.txt");
-  map_data     = loadStrings("map.txt");
-  planner_data = loadStrings("planner.txt");
-  robot_data   = loadStrings("robot.txt");
+  config_data    = loadStrings("config.txt");
+  map_data       = loadStrings("map.txt");
+  planner_data   = loadStrings("planner.txt");
+  robot_data     = loadStrings("robot.txt");
+  obstacles_data = loadStrings("obstacles.txt");
   
-  num_curves = Integer.parseInt(config_data[0]);
-  tsteps     = Integer.parseInt(config_data[1]);
-  horizon    = Integer.parseInt(config_data[2]);
+  num_curves    = Integer.parseInt(config_data[0]);
+  tsteps        = Integer.parseInt(config_data[1]);
+  horizon       = Integer.parseInt(config_data[2]);
+  num_obstacles = Integer.parseInt(config_data[3]);
   
 }
 
@@ -148,6 +184,7 @@ void draw(){
   if (tstep < tsteps){
     background(150);
     draw_map();
+    draw_obstacles();
     draw_planner(tstep);
     draw_robot(tstep);
     tstep++;

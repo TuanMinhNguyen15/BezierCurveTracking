@@ -26,3 +26,12 @@ void  Circle::gradient(float x, float y, float &gx, float &gy){
     gx = gx/mag;
     gy = gy/mag;
 }
+
+std::vector<float> Circle::properties(){
+    std::vector<float> prop = {params_.xc,params_.yc,params_.r};
+    return prop;
+}
+
+std::string Circle::shape(){
+    return "circle";
+}

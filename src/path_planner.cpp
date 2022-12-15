@@ -85,8 +85,10 @@ PathPlanner::Trajectory PathPlanner::pursuitcurve_sim(float x0, float y0, float 
 
         }
 
+        // Obstacle testing
+        // obstacle_avoidance(x0,y0,theta0,vx_follow,vy_follow);
+
         // Constrain v_follow w.r.t minimum turning radius
-        // theta_next = find_angle(1,0,vx_follow,vy_follow);
         theta_diff = find_angle(vx_follow,vy_follow,heading_x,heading_y);
         if(std::abs(theta_diff) > theta_diff_max){
             if(theta_diff <= 0){
@@ -140,6 +142,7 @@ PathPlanner::Trajectory PathPlanner::tracking(float x0, float y0, float theta0){
         // Favor forward
         while(true){
             if (traj_best.total_cost <= traj_forward.total_cost){
+                // std::cout << "lambda_best = " << lambda << std::endl;
                 return traj_best;
             }
             else{
@@ -155,6 +158,7 @@ PathPlanner::Trajectory PathPlanner::tracking(float x0, float y0, float theta0){
         while(true){
             lambda_diff = params_.map->get_lambda_diff(lambda);
             if (traj_best.total_cost <= traj_backward.total_cost){
+                // std::cout << "lambda_best = " << lambda << std::endl;
                 return traj_best;
             }
             else{
@@ -198,27 +202,63 @@ void PathPlanner::obstacle_avoidance(float x0, float y0, float theta0, float &vx
     float v_perp,v_away;
     float v_mag;
 
+    float vx_avg,vy_avg;
+    std::vector<float> vx_list,vy_list;
+    std::vector<float> eval_list;
+
     float heading_x = 1;
     float heading_y = 0;
     float theta_diff;
 
-    params_.obstacle->gradient(x0,y0,nx,ny);
-    ex =  ny;
-    ey = -nx;
+    for (auto obstacle : params_.obstacles){
+        eval_list.push_back(obstacle->evaluate(x0,y0));
 
-    det = nx*ey - ex*ny;
-    v_perp =  (ey/det)*vx - (ex/det)*vy;
-    v_away = -(ny/det)*vx + (nx/det)*vy;
+        obstacle->gradient(x0,y0,nx,ny);
+        ex =  ny;
+        ey = -nx;
 
-    v_perp = v_perp*(1 - 1/params_.obstacle->evaluate(x0,y0));
-    v_away = v_away*(1 + 1/params_.obstacle->evaluate(x0,y0));
-    v_mag  = std::sqrt(std::pow(v_perp,2) + std::pow(v_away,2));
-    
-    v_perp *= params_.vel/v_mag;
-    v_away *= params_.vel/v_mag;
+        det = nx*ey - ex*ny;
+        v_perp =  (ey/det)*vx - (ex/det)*vy;
+        v_away = -(ny/det)*vx + (nx/det)*vy;
 
-    vx = nx*v_perp + ex*v_away;
-    vy = ny*v_perp + ey*v_away;
+        // Modulation
+        if (nx*vx + ny*vy < 0 || obstacle->evaluate(x0,y0) <= 1){
+            v_perp = v_perp*(1 - 1/std::pow(obstacle->evaluate(x0,y0),1/params_.reactivity));
+            v_perp = std::min(std::max(v_perp,-params_.vel),params_.vel);
+            if (v_away >= 0){
+                v_away = std::sqrt(std::pow(params_.vel,2) - std::pow(v_perp,2));
+            }
+            else{
+                v_away = -std::sqrt(std::pow(params_.vel,2) - std::pow(v_perp,2));
+            }
+        }
+
+        vx_list.push_back(nx*v_perp + ex*v_away);
+        vy_list.push_back(ny*v_perp + ey*v_away);
+    }
+
+    // Calculate average
+    std::vector<float> w;
+    w.resize(params_.obstacles.size());
+    float w_total = 0;
+
+    for (int i = 0; i < params_.obstacles.size(); i++){
+        w[i] = 1;
+        for (int j = 0; j < params_.obstacles.size(); j++){
+            if (j != i){
+                w[i] *= (eval_list[j]-1);
+            }
+        }
+        w_total += w[i];
+    }
+
+    vx = 0;
+    vy = 0;
+    for(int k = 0; k < params_.obstacles.size(); k++){
+        vx += (w[k]/w_total)*vx_list[k];
+        vy += (w[k]/w_total)*vy_list[k];
+    }
+
 
     rotate(heading_x,heading_y,theta0);
     theta_diff = find_angle(vx,vy,heading_x,heading_y);
