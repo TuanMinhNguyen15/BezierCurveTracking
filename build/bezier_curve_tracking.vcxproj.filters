@@ -13,6 +13,9 @@
     <ClCompile Include="D:\BezierCurveTracking\src\path_planner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\BezierCurveTracking\src\obstacles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\BezierCurveTracking\CMakeLists.txt" />

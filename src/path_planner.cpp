@@ -189,4 +189,48 @@ void PathPlanner::priming(float x0, float y0, float theta0){
 
     lambda = lambda_best;
     std::cout << "lambda_best = " << lambda << std::endl;
-}   
+} 
+
+void PathPlanner::obstacle_avoidance(float x0, float y0, float theta0, float &vx, float &vy){
+    float nx,ny;
+    float ex,ey;
+    float det;
+    float v_perp,v_away;
+    float v_mag;
+
+    float heading_x = 1;
+    float heading_y = 0;
+    float theta_diff;
+
+    params_.obstacle->gradient(x0,y0,nx,ny);
+    ex =  ny;
+    ey = -nx;
+
+    det = nx*ey - ex*ny;
+    v_perp =  (ey/det)*vx - (ex/det)*vy;
+    v_away = -(ny/det)*vx + (nx/det)*vy;
+
+    v_perp = v_perp*(1 - 1/params_.obstacle->evaluate(x0,y0));
+    v_away = v_away*(1 + 1/params_.obstacle->evaluate(x0,y0));
+    v_mag  = std::sqrt(std::pow(v_perp,2) + std::pow(v_away,2));
+    
+    v_perp *= params_.vel/v_mag;
+    v_away *= params_.vel/v_mag;
+
+    vx = nx*v_perp + ex*v_away;
+    vy = ny*v_perp + ey*v_away;
+
+    rotate(heading_x,heading_y,theta0);
+    theta_diff = find_angle(vx,vy,heading_x,heading_y);
+    if(std::abs(theta_diff) > theta_diff_max){
+        if(theta_diff <= 0){
+            // Update v_follow
+            rotate(vx,vy,theta_diff+theta_diff_max);
+        }
+        else{
+            // Update v_follow
+            rotate(vx,vy,theta_diff-theta_diff_max);
+        }
+    }
+
+}

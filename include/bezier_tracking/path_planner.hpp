@@ -3,6 +3,7 @@
 #include <array>
 #include <cmath>
 #include "bezier_tracking/map.hpp"
+#include "bezier_tracking/obstacles.hpp"
 
 class PathPlanner{
     public:
@@ -15,6 +16,7 @@ class PathPlanner{
             float distance_cost = 1;
             float heading_cost  = 1;
             float smooth_cost   = 1;
+            Obstacle* obstacle;
         };
 
         struct Trajectory{
@@ -33,6 +35,8 @@ class PathPlanner{
         Trajectory pursuitcurve_sim(float x0, float y0, float theta0, float lambda);
         Trajectory tracking(float x0, float y0, float theta0);
         void priming(float x0, float y0, float theta0);
+
+        void obstacle_avoidance(float x0, float y0, float theta0, float &vx, float &vy);
 
     private:
         Params params_;

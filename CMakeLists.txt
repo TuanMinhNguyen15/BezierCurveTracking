@@ -8,10 +8,14 @@ add_library(bezier_curve_tracking
             src/bezier_curve.cpp 
             src/linear_bezier.cpp 
             src/map.cpp
-            src/path_planner.cpp)
+            src/path_planner.cpp
+            src/obstacles.cpp)
 target_include_directories(bezier_curve_tracking PUBLIC include)
 
 add_executable(demo example/demo.cpp)
 target_link_libraries(demo bezier_curve_tracking)
+
+add_executable(demo_obstacles example/demo_obstacles.cpp)
+target_link_libraries(demo_obstacles bezier_curve_tracking)
 
 
