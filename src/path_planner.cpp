@@ -85,9 +85,6 @@ PathPlanner::Trajectory PathPlanner::pursuitcurve_sim(float x0, float y0, float 
 
         }
 
-        // Obstacle testing
-        // obstacle_avoidance(x0,y0,theta0,vx_follow,vy_follow);
-
         // Constrain v_follow w.r.t minimum turning radius
         theta_diff = find_angle(vx_follow,vy_follow,heading_x,heading_y);
         if(std::abs(theta_diff) > theta_diff_max){
