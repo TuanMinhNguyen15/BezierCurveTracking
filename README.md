@@ -14,10 +14,6 @@
     - [6.1. Path Tracking](#61-path-tracking)
     - [6.2. Obstacle Avoidance](#62-obstacle-avoidance)
   - [7. Work-in-Progress and Future Work](#7-work-in-progress-and-future-work)
-  - [6. Demo](#6-demo)
-    - [6.1. Path Tracking](#61-path-tracking)
-    - [6.2. Obstacle Avoidance](#62-obstacle-avoidance)
-  - [7. Work-in-Progress and Future Work](#7-work-in-progress-and-future-work)
 
 ## 1. Problem Statement
 
