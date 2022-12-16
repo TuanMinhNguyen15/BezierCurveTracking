@@ -19,7 +19,7 @@ int horizon;
 int num_obstacles;
 
 int tstep = 0;
-boolean recording = true;
+boolean recording = false;
 
 public class Point{
   float x;
@@ -164,8 +164,8 @@ void setup(){
   size(1500, 1000);
   x_origin = 150;
   y_origin = height/2;
-  p_origin.x = x_origin;
-  p_origin.y = y_origin;
+  p_origin.x = x_origin+300;
+  p_origin.y = y_origin+100;
   
   config_data    = loadStrings("config.txt");
   map_data       = loadStrings("map.txt");
@@ -181,6 +181,7 @@ void setup(){
 }
 
 void draw(){
+ 
   if (tstep < tsteps){
     background(150);
     draw_map();

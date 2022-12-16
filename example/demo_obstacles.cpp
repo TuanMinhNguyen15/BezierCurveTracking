@@ -9,24 +9,31 @@
 int main(){
     // Map
     LinearBezier::Params line_params;
+
     line_params.x_start = 0;
     line_params.y_start = 0; 
-    line_params.x_end   = 6;
+    line_params.x_end   = 2;
     line_params.y_end   = 0;
-    LinearBezier Line(line_params);
+    LinearBezier Line1(line_params);
 
-    Map map({&Line});
+    line_params.x_start = 2;
+    line_params.y_start = 0; 
+    line_params.x_end   = 2;
+    line_params.y_end   = 2;
+    LinearBezier Line2(line_params);
+
+    Map map({&Line1,&Line2});
 
     // Obstacles
     Circle::Params circle_params;
 
-    circle_params.xc = 2;
+    circle_params.xc = 1;
     circle_params.yc = 0; 
     circle_params.r  = 0.5;
     Circle circle1(circle_params);
 
-    circle_params.xc = 4;
-    circle_params.yc = 0; 
+    circle_params.xc = 2;
+    circle_params.yc = 1; 
     circle_params.r  = 0.5;
     Circle circle2(circle_params);
 
@@ -49,13 +56,13 @@ int main(){
     // Simulation
     FILE* data_points;
     FILE *config_data,*map_data,*robot_data,*planner_data,*obstacles_data;
-    int tsteps = 700;
+    int tsteps = 550;
     float x_current,y_current,theta_current;
     float vx,vy;
     float x_next,y_next,theta_next;
 
     float x0     = 0;
-    float y0     = 0;
+    float y0     = -0.1;
     float theta0 = 0;
 
     data_points    = fopen("data_points.tmp","w");
