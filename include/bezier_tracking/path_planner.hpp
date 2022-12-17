@@ -31,6 +31,7 @@ class PathPlanner{
 
         void update_map(Map *map);
         void update_lambda(float lambda);
+        void update_obstacles(std::vector<Obstacle*> obstacles);
         float get_dt();
         float find_angle(float x1, float y1, float x2, float y2);
         void rotate(float &x, float &y, float angle);

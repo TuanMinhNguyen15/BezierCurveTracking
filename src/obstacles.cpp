@@ -11,6 +11,12 @@ bool Obstacle::is_collided(float x, float y){
 
 Circle::Circle(Params params):params_(params){}
 
+Circle::Circle(){
+    params_.xc = 0;
+    params_.yc = 0;
+    params_.r = 0;
+}
+
 float Circle::evaluate(float x, float y){
     return (std::pow(x-params_.xc,2) + std::pow(y-params_.yc,2))/std::pow(params_.r,2);
 }
@@ -34,4 +40,13 @@ std::vector<float> Circle::properties(){
 
 std::string Circle::shape(){
     return "circle";
+}
+
+void Circle::update_center(float x, float y){
+    params_.xc = x;
+    params_.yc = y;
+}
+
+void Circle::update_radius(float r){
+    params_.r = r;
 }

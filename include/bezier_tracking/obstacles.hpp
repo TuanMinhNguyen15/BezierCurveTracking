@@ -23,11 +23,15 @@ class Circle : public Obstacle {
         };
 
         Circle(Params params);
+        Circle();
 
         float evaluate(float x, float y) override;
         void  gradient(float x, float y, float &gx, float &gy) override;
         std::vector<float> properties() override;
         std::string shape() override;
+
+        void update_center(float x, float y);
+        void update_radius(float r);
 
     private:
         Params params_;

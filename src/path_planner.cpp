@@ -208,6 +208,10 @@ void PathPlanner::obstacle_avoidance(float x0, float y0, float theta0, float &vx
     float theta_diff;
 
     for (auto obstacle : params_.obstacles){
+        if (obstacle->evaluate(x0,y0) < 1){
+            std::cout << "collision!!!\n";
+        }
+
         eval_list.push_back(obstacle->evaluate(x0,y0));
 
         obstacle->gradient(x0,y0,nx,ny);
@@ -270,4 +274,8 @@ void PathPlanner::obstacle_avoidance(float x0, float y0, float theta0, float &vx
         }
     }
 
+}
+
+void PathPlanner::update_obstacles(std::vector<Obstacle*> obstacles){
+    params_.obstacles = obstacles;
 }
