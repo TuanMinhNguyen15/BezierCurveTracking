@@ -1,8 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
-#include "bezier_tracking/linear_bezier.hpp"
-#include "bezier_tracking/map.hpp"
+#include "bezier_tracking/bezier_curves.hpp"
 #include "bezier_tracking/path_planner.hpp"
 #include "bezier_tracking/obstacles.hpp"
 

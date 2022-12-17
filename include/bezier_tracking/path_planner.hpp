@@ -2,7 +2,7 @@
 #include <iostream>
 #include <array>
 #include <cmath>
-#include "bezier_tracking/map.hpp"
+#include "bezier_tracking/bezier_curves.hpp"
 #include "bezier_tracking/obstacles.hpp"
 
 class PathPlanner{

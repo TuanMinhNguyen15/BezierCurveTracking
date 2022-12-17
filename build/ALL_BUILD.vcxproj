@@ -177,17 +177,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{52A616D4-0341-37D6-ABC7-45E45C44443C}</Project>
       <Name>bezier_curve_tracking</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\BezierCurveTracking\build\demo.vcxproj">
-      <Project>{A1B04F6C-972E-37D1-8889-00EA5E142C9F}</Project>
-      <Name>demo</Name>
-    </ProjectReference>
     <ProjectReference Include="D:\BezierCurveTracking\build\demo_obstacles.vcxproj">
       <Project>{54B5ADFB-2D07-3565-B873-4064E6AC483B}</Project>
       <Name>demo_obstacles</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\BezierCurveTracking\build\line_tracking.vcxproj">
-      <Project>{45AD8162-30BC-3962-835B-7520AC61E9E0}</Project>
-      <Name>line_tracking</Name>
+    <ProjectReference Include="D:\BezierCurveTracking\build\demo_tracking.vcxproj">
+      <Project>{506E399B-A03C-3085-90F5-AEF9D81E4DD7}</Project>
+      <Name>demo_tracking</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

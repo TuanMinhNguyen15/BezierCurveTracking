@@ -1,6 +1,5 @@
-D:/BezierCurveTracking/build/CMakeFiles/line_tracking.dir
 D:/BezierCurveTracking/build/CMakeFiles/bezier_curve_tracking.dir
-D:/BezierCurveTracking/build/CMakeFiles/demo.dir
+D:/BezierCurveTracking/build/CMakeFiles/demo_tracking.dir
 D:/BezierCurveTracking/build/CMakeFiles/demo_obstacles.dir
 D:/BezierCurveTracking/build/CMakeFiles/ALL_BUILD.dir
 D:/BezierCurveTracking/build/CMakeFiles/ZERO_CHECK.dir

@@ -257,9 +257,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="D:\BezierCurveTracking\src\bezier_curve.cpp" />
-    <ClCompile Include="D:\BezierCurveTracking\src\linear_bezier.cpp" />
-    <ClCompile Include="D:\BezierCurveTracking\src\map.cpp" />
+    <ClCompile Include="D:\BezierCurveTracking\src\bezier_curves.cpp" />
     <ClCompile Include="D:\BezierCurveTracking\src\path_planner.cpp" />
     <ClCompile Include="D:\BezierCurveTracking\src\obstacles.cpp" />
   </ItemGroup>
