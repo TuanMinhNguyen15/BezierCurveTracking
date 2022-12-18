@@ -13,6 +13,7 @@
   - [6. Demo](#6-demo)
     - [6.1. Path Tracking](#61-path-tracking)
     - [6.2. Obstacle Avoidance](#62-obstacle-avoidance)
+    - [6.3. Multi-agents](#63-multi-agents)
   - [7. Work-in-Progress and Future Work](#7-work-in-progress-and-future-work)
 
 ## 1. Problem Statement
