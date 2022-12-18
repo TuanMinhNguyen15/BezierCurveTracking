@@ -179,6 +179,12 @@ In the next 3 scenarios, the robot is NOT placed on the path and is initially he
   <img src="videos/obstacle_avoidance_demo2.gif" />
 </p>
 
+### 6.3. Multi-agents
+
+<p align="center">
+  <img src="videos/multi_agents_demo.gif" />
+</p>
+
 ## 7. Work-in-Progress and Future Work
 Currently, only linear bezier is implemented which, I believe, is enough to construct most paths in mobile robot applications. Quadratic and cubic Bezier curves are in progress. 
 
