@@ -58,9 +58,14 @@ int main(){
 
 
     // Simulation
-    FILE* data_points;
-    FILE *config_data,*map_data,*robot_data,*planner_data,*obstacles_data;
-    int tsteps = 1000;
+    FILE *general;
+    FILE *config_data1,*config_data2;
+    FILE *data_points1,*data_points2;
+    FILE *map_data1,*robot_data1,*planner_data1;
+    FILE *map_data2,*robot_data2,*planner_data2;
+    FILE *obstacles_data;
+
+    int tsteps = 210;
 
     float robot1_x_current,robot1_y_current,robot1_theta_current;
     float robot1_vx,robot1_vy;
@@ -71,38 +76,67 @@ int main(){
     float robot2_x_next,robot2_y_next,robot2_theta_next;
 
     float robot1_x0     = 0;
-    float robot1_y0     = 0.01;
-    float robot1_theta0 = 0;
+    float robot1_y0     = 0;
+    float robot1_theta0 = 1.57;
 
     float robot2_x0     = 2;
-    float robot2_y0     = -0.01;
-    float robot2_theta0 = -3.14;
+    float robot2_y0     = 0;
+    float robot2_theta0 = -1.57;
 
-    data_points    = fopen("data_points.tmp","w");
-    // config_data    = fopen("../simulation/config.txt","w");
-    // map_data       = fopen("../simulation/map.txt","w");
-    // robot_data     = fopen("../simulation/robot.txt","w");
-    // planner_data   = fopen("../simulation/planner.txt","w");
-    // obstacles_data = fopen("../simulation/obstacles.txt","w");
+    general         = fopen("../simulation/general.txt","w");
+
+    config_data1    = fopen("../simulation/config1.txt","w");
+    config_data2    = fopen("../simulation/config2.txt","w");
+
+    data_points1    = fopen("data_points1.tmp","w");
+    data_points2    = fopen("data_points2.tmp","w");
+
+    map_data1       = fopen("../simulation/map1.txt","w");
+    map_data2       = fopen("../simulation/map2.txt","w");
+
+    robot_data1     = fopen("../simulation/robot1.txt","w");
+    robot_data2     = fopen("../simulation/robot2.txt","w");
+
+    planner_data1   = fopen("../simulation/planner1.txt","w");
+    planner_data2   = fopen("../simulation/planner2.txt","w");
+
+    obstacles_data  = fopen("../simulation/obstacles.txt","w");
+
+    // General data
+    fprintf(general,"%d\n",tsteps);  // number of timesteps
+    fprintf(general,"%d\n",2); // number of agents
+    fprintf(general,"%d\n",0); // number of obstacles
 
     // Config data
-    // fprintf(config_data,"%d\n",map.get_num_curves());
-    // fprintf(config_data,"%d\n",tsteps);
-    // fprintf(config_data,"%d\n",planner_params.horizon);
-    // fprintf(config_data,"%d\n",planner_params.obstacles.size());
+    fprintf(config_data1,"%d\n",map_robot1.get_num_curves()); // number of map curves
+    fprintf(config_data1,"%d\n",robot1_params.horizon);       // planner horizon
+
+    fprintf(config_data2,"%d\n",map_robot2.get_num_curves()); // number of map curves
+    fprintf(config_data2,"%d\n",robot2_params.horizon);       // planner horizon
 
     // Map data
-    // auto curves = map.get_curves();
-    // std::vector<std::array<float,2>> control_points;
-    // for (auto curve : curves){
-    //     if (curve->bezier_type() == "linear"){
-    //         fprintf(map_data, "%s\n","linear");
-    //         control_points = curve->get_control_points();
-    //         for (auto control_point : control_points){
-    //             fprintf(map_data, "%.2f,%.2f\n",control_point[0],control_point[1]);
-    //         }
-    //     }
-    // }
+    auto curves = map_robot1.get_curves();
+    std::vector<std::array<float,2>> control_points;
+    for (auto curve : curves){
+        if (curve->bezier_type() == "linear"){
+            fprintf(map_data1, "%s\n","linear");
+            control_points = curve->get_control_points();
+            for (auto control_point : control_points){
+                fprintf(map_data1, "%.2f,%.2f\n",control_point[0],control_point[1]);
+            }
+        }
+    }
+
+    curves = map_robot2.get_curves();
+    for (auto curve : curves){
+        if (curve->bezier_type() == "linear"){
+            fprintf(map_data2, "%s\n","linear");
+            control_points = curve->get_control_points();
+            for (auto control_point : control_points){
+                fprintf(map_data2, "%.2f,%.2f\n",control_point[0],control_point[1]);
+            }
+        }
+    }
 
     // Obstacles data
     // for(auto obstacle : planner_params.obstacles){
@@ -121,8 +155,11 @@ int main(){
     robot2_y_current = robot2_y0;
     robot2_theta_current = robot2_theta0;
 
-    fprintf(data_points, "%f %f\n",robot2_x_current,robot2_y_current);
-    // fprintf(robot_data,"%.2f,%.2f,%.2f\n",x_current,y_current,theta_current);
+    fprintf(data_points1, "%f %f\n",robot1_x_current,robot1_y_current);
+    fprintf(data_points2, "%f %f\n",robot2_x_current,robot2_y_current);
+
+    fprintf(robot_data1,"%.2f,%.2f,%.2f\n",robot1_x_current,robot1_y_current,robot1_theta_current);
+    fprintf(robot_data2,"%.2f,%.2f,%.2f\n",robot2_x_current,robot2_y_current,robot2_theta_current);
 
     robot1.priming(robot1_x_current,robot1_y_current,robot1_theta_current);
     robot2.priming(robot2_x_current,robot2_y_current,robot2_theta_current);
@@ -134,9 +171,12 @@ int main(){
         robot2_traj = robot2.tracking(robot2_x_current,robot2_y_current,robot2_theta_current);
 
         // Planner data
-        // for (auto pos : trajectory.pos){
-        //     fprintf(planner_data,"%.2f,%.2f\n",pos[0],pos[1]);
-        // }
+        for (auto pos : robot1_traj.pos){
+            fprintf(planner_data1,"%.2f,%.2f\n",pos[0],pos[1]);
+        }
+        for (auto pos : robot2_traj.pos){
+            fprintf(planner_data2,"%.2f,%.2f\n",pos[0],pos[1]);
+        }
 
         // Robot data
         robot1_vx = robot1_traj.vel[0][0];
@@ -163,21 +203,41 @@ int main(){
         robot2_y_current = robot2_y_next;
         robot2_theta_current = robot2_theta_next;
 
-        fprintf(data_points, "%f %f\n",robot2_x_current,robot2_y_current);
-        // fprintf(robot_data,"%.2f,%.2f,%.2f\n",x_current,y_current,theta_current);
+        fprintf(data_points1, "%f %f\n",robot1_x_current,robot1_y_current);
+        fprintf(data_points2, "%f %f\n",robot2_x_current,robot2_y_current);
+
+        fprintf(robot_data1,"%.2f,%.2f,%.2f\n",robot1_x_current,robot1_y_current,robot1_theta_current);
+        fprintf(robot_data2,"%.2f,%.2f,%.2f\n",robot2_x_current,robot2_y_current,robot2_theta_current);
     }
     robot1_traj = robot1.tracking(robot1_x_current,robot1_y_current,robot1_theta_current);
-    // Planner data
-    // for (auto pos : trajectory.pos){
-    //     fprintf(planner_data,"%.2f,%.2f\n",pos[0],pos[1]);
-    // }
+    robot2_traj = robot2.tracking(robot2_x_current,robot2_y_current,robot2_theta_current);
 
-    fclose(data_points);
-    // fclose(config_data);
-    // fclose(map_data);
-    // fclose(robot_data);
-    // fclose(planner_data);
-    // fclose(data_points);
+    // Planner data
+    for (auto pos : robot1_traj.pos){
+        fprintf(planner_data1,"%.2f,%.2f\n",pos[0],pos[1]);
+    }
+    for (auto pos : robot2_traj.pos){
+        fprintf(planner_data2,"%.2f,%.2f\n",pos[0],pos[1]);
+    }
+
+    fclose(general);
+
+    fclose(data_points1);
+    fclose(data_points2);
+
+    fclose(config_data1);
+    fclose(config_data2);
+
+    fclose(map_data1);
+    fclose(map_data2);
+
+    fclose(robot_data1);
+    fclose(robot_data2);
+
+    fclose(planner_data1);
+    fclose(planner_data2);
+
+    fclose(obstacles_data);
     
     return 0;
 }

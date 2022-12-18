@@ -53,8 +53,9 @@ int main(){
     PathPlanner::Trajectory trajectory;
 
     // Simulation
-    FILE* data_points;
-    FILE *config_data,*map_data,*robot_data,*planner_data,*obstacles_data;
+    FILE *general;
+    FILE* data_points1;
+    FILE *config_data1,*map_data1,*robot_data1,*planner_data1,*obstacles_data;
     int tsteps = 550;
     float x_current,y_current,theta_current;
     float vx,vy;
@@ -64,28 +65,32 @@ int main(){
     float y0     = -0.1;
     float theta0 = 0;
 
-    data_points    = fopen("data_points.tmp","w");
-    config_data    = fopen("../simulation/config.txt","w");
-    map_data       = fopen("../simulation/map.txt","w");
-    robot_data     = fopen("../simulation/robot.txt","w");
-    planner_data   = fopen("../simulation/planner.txt","w");
-    obstacles_data = fopen("../simulation/obstacles.txt","w");
+    general         = fopen("../simulation/general.txt","w");
+    data_points1    = fopen("data_points1.tmp","w");
+    config_data1    = fopen("../simulation/config1.txt","w");
+    map_data1       = fopen("../simulation/map1.txt","w");
+    robot_data1     = fopen("../simulation/robot1.txt","w");
+    planner_data1   = fopen("../simulation/planner1.txt","w");
+    obstacles_data  = fopen("../simulation/obstacles.txt","w");
+
+    // General data
+    fprintf(general,"%d\n",tsteps);  // number of timesteps
+    fprintf(general,"%d\n",1); // number of agents
+    fprintf(general,"%d\n",2); // number of obstacles
 
     // Config data
-    fprintf(config_data,"%d\n",map.get_num_curves());
-    fprintf(config_data,"%d\n",tsteps);
-    fprintf(config_data,"%d\n",planner_params.horizon);
-    fprintf(config_data,"%d\n",planner_params.obstacles.size());
+    fprintf(config_data1,"%d\n",map.get_num_curves());    // number of map curves
+    fprintf(config_data1,"%d\n",planner_params.horizon);  // planner horizon
 
     // Map data
     auto curves = map.get_curves();
     std::vector<std::array<float,2>> control_points;
     for (auto curve : curves){
         if (curve->bezier_type() == "linear"){
-            fprintf(map_data, "%s\n","linear");
+            fprintf(map_data1, "%s\n","linear");
             control_points = curve->get_control_points();
             for (auto control_point : control_points){
-                fprintf(map_data, "%.2f,%.2f\n",control_point[0],control_point[1]);
+                fprintf(map_data1, "%.2f,%.2f\n",control_point[0],control_point[1]);
             }
         }
     }
@@ -98,13 +103,13 @@ int main(){
         }
     }
 
-    // Simulation
+ 
     x_current = x0;
     y_current = y0;
     theta_current = theta0;
 
-    fprintf(data_points, "%f %f\n",x_current,y_current);
-    fprintf(robot_data,"%.2f,%.2f,%.2f\n",x_current,y_current,theta_current);
+    fprintf(data_points1, "%f %f\n",x_current,y_current);
+    fprintf(robot_data1,"%.2f,%.2f,%.2f\n",x_current,y_current,theta_current);
 
     planner.priming(x_current,y_current,theta_current);
     for(int i = 0; i < tsteps; i++){
@@ -112,7 +117,7 @@ int main(){
         
         // Planner data
         for (auto pos : trajectory.pos){
-            fprintf(planner_data,"%.2f,%.2f\n",pos[0],pos[1]);
+            fprintf(planner_data1,"%.2f,%.2f\n",pos[0],pos[1]);
         }
 
         // Robot data
@@ -129,21 +134,22 @@ int main(){
         y_current = y_next;
         theta_current = theta_next;
 
-        fprintf(data_points, "%f %f\n",x_current,y_current);
-        fprintf(robot_data,"%.2f,%.2f,%.2f\n",x_current,y_current,theta_current);
+        fprintf(data_points1, "%f %f\n",x_current,y_current);
+        fprintf(robot_data1,"%.2f,%.2f,%.2f\n",x_current,y_current,theta_current);
     }
     trajectory = planner.tracking(x_current,y_current,theta_current);
     // Planner data
     for (auto pos : trajectory.pos){
-        fprintf(planner_data,"%.2f,%.2f\n",pos[0],pos[1]);
+        fprintf(planner_data1,"%.2f,%.2f\n",pos[0],pos[1]);
     }
 
-    fclose(data_points);
-    fclose(config_data);
-    fclose(map_data);
-    fclose(robot_data);
-    fclose(planner_data);
-    fclose(data_points);
+    fclose(data_points1);
+    fclose(config_data1);
+    fclose(map_data1);
+    fclose(robot_data1);
+    fclose(planner_data1);
+    fclose(data_points1);
+    fclose(obstacles_data);
     
     return 0;
 }
