@@ -11,6 +11,9 @@
       <FullPath>D:\BezierCurveTracking\build\Debug\demo_obstacles.exe</FullPath>
     </ProjectOutput>
     <ProjectOutput>
+      <FullPath>D:\BezierCurveTracking\build\Debug\demo_quadratic_bezier.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
       <FullPath>D:\BezierCurveTracking\build\Debug\demo_tracking.exe</FullPath>
     </ProjectOutput>
     <ProjectOutput>

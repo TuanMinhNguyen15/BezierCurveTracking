@@ -38,6 +38,31 @@ class LinearBezier : public BezierCurve{
 };
 
 
+// Quadratic Bezier Curves
+class QuadraticBezier : public BezierCurve{
+    public:
+        struct Params{
+            float x_start,y_start;
+            float x_inter,y_inter;
+            float x_end,y_end;
+            float dstep = 0.1;
+        };
+
+        QuadraticBezier(Params params);
+        ~QuadraticBezier();
+
+        void  get_point(float lambda, float &x, float &y) override;
+        void  get_velocity(float lambda, float lambda_vel, float &vx, float &vy) override;
+        float lambda_velocity(float lambda, float velocity) override;
+        std::string bezier_type() override;
+        std::vector<std::array<float,2>> get_control_points() override;
+
+    private:
+        Params params_;
+        LinearBezier *line_before,*line_after;
+};
+
+
 // Map = Combination of Bezier Curves
 class Map : public BezierCurve{
     public:
