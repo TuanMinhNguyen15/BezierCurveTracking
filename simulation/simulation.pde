@@ -1,6 +1,6 @@
 float x_origin;
 float y_origin;
-float scaling = 200;
+float scaling = 400;
 Point p_origin = new Point();
 
 String[] general_data;
@@ -50,6 +50,30 @@ void draw_line(float x1,float y1,float x2,float y2){
   p2 = transform(p2);
   
   line(p1.x,p1.y,p2.x,p2.y);
+}
+
+void draw_quadratic_bezier(float x1,float y1,float x2,float y2,float x3,float y3){
+  noFill();
+  
+  Point p1 = new Point();
+  Point p2 = new Point();
+  Point p3 = new Point();
+  
+  p1.x = x1;
+  p1.y = y1;
+  p2.x = x2;
+  p2.y = y2;
+  p3.x = x3;
+  p3.y = y3;
+  
+  p1 = transform(p1);
+  p2 = transform(p2);
+  p3 = transform(p3);
+  
+  beginShape();
+  vertex(p1.x,p1.y);
+  quadraticVertex(p2.x,p2.y, p3.x,p3.y);
+  endShape();
 }
 
 void draw_point(float x,float y){
@@ -120,6 +144,22 @@ void draw_map(){
            index = index + 3;
            break;
          case "quadratic":
+           data_line = map_data[agent_id][index+1].split(",");
+           quadratic_bezier[0] = Float.parseFloat(data_line[0]);
+           quadratic_bezier[1] = Float.parseFloat(data_line[1]);
+           
+           data_line = map_data[agent_id][index+2].split(",");
+           quadratic_bezier[2] = Float.parseFloat(data_line[0]);
+           quadratic_bezier[3] = Float.parseFloat(data_line[1]);
+           
+           data_line = map_data[agent_id][index+3].split(",");
+           quadratic_bezier[4] = Float.parseFloat(data_line[0]);
+           quadratic_bezier[5] = Float.parseFloat(data_line[1]);
+           
+           draw_quadratic_bezier(quadratic_bezier[0],quadratic_bezier[1],quadratic_bezier[2],quadratic_bezier[3],quadratic_bezier[4],quadratic_bezier[5]);
+           
+           index = index + 4;
+           
            break;
          case "cubic":
            break;
@@ -179,8 +219,8 @@ void draw_obstacles(){
 
 void setup(){
   size(1500, 1000);
-  x_origin = 250;
-  y_origin = height/2;
+  x_origin = 450;
+  y_origin = height/2 +200;
   p_origin.x = x_origin;
   p_origin.y = y_origin;
   
@@ -212,7 +252,6 @@ void setup(){
 }
 
 void draw(){
- 
   if (tstep < tsteps){
     background(150);
     draw_map();
