@@ -18,6 +18,7 @@ int main(){
 
     // Create Map
     Map map({&Quad});
+    
 
     // Setup Path Planner
     PathPlanner::Params planner_params;
@@ -34,7 +35,6 @@ int main(){
     PathPlanner::Trajectory trajectory;
 
 
-
     // Simulation
     FILE *general;
     FILE* data_points1;
@@ -43,9 +43,9 @@ int main(){
     float x_current,y_current,theta_current;
     float vx,vy;
     float x_next,y_next,theta_next;
-    float x0     = 0.5;
-    float y0     = 0;
-    float theta0 = -1.57;
+    float x0     = -0.5;
+    float y0     = 1;
+    float theta0 = -3;
 
 
     general         = fopen("../simulation/general.txt","w");

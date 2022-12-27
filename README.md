@@ -11,9 +11,10 @@
   - [4. Path Tracking](#4-path-tracking)
   - [5. Obstacle Avoidance](#5-obstacle-avoidance)
   - [6. Demo](#6-demo)
-    - [6.1. Path Tracking](#61-path-tracking)
-    - [6.2. Obstacle Avoidance](#62-obstacle-avoidance)
-    - [6.3. Multi-agents](#63-multi-agents)
+    - [6.1. Linear Bezier Tracking](#61-linear-bezier-tracking)
+    - [6.2. Quadratic Bezier Tracking](#62-quadratic-bezier-tracking)
+    - [6.3. Obstacle Avoidance](#63-obstacle-avoidance)
+    - [6.4. Multi-agents](#64-multi-agents)
   - [7. Work-in-Progress and Future Work](#7-work-in-progress-and-future-work)
 
 ## 1. Problem Statement
@@ -147,7 +148,7 @@ As robot gets closer to the obstacle, $v_n$ will be scaled down, and $v_e$ will 
 Of course, we still need to ensure the robot's minimum turning radius is satisfy at all time, which is discussed in Section 2.
 
 ## 6. Demo
-### 6.1. Path Tracking
+### 6.1. Linear Bezier Tracking
 In this demo, a mobile robot needs to track a stair-like path. The goal is NOT to reach an end point, but to drive the robot to quickly converge and make progress along the path. 
 
 In the first scenario, the robot is intially on the path and heading toward the correct direction. Notice that at the 90-degrees turns, the robot always satify its minimum turning radius, which is set to $0.1$
@@ -170,7 +171,17 @@ In the next 3 scenarios, the robot is NOT placed on the path and is initially he
   <img src="videos/linearbezier_demo4.gif" />
 </p>
 
-### 6.2. Obstacle Avoidance
+### 6.2. Quadratic Bezier Tracking
+
+<p align="center">
+  <img src="videos/quadraticbezier_demo1.gif" />
+</p>
+
+<p align="center">
+  <img src="videos/quadraticbezier_demo2.gif" />
+</p>
+
+### 6.3. Obstacle Avoidance
 
 <p align="center">
   <img src="videos/obstacle_avoidance_demo1.gif" />
@@ -180,7 +191,7 @@ In the next 3 scenarios, the robot is NOT placed on the path and is initially he
   <img src="videos/obstacle_avoidance_demo2.gif" />
 </p>
 
-### 6.3. Multi-agents
+### 6.4. Multi-agents
 
 <p align="center">
   <img src="videos/multi_agents_demo.gif" />

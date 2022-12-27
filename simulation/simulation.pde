@@ -219,7 +219,7 @@ void draw_obstacles(){
 
 void setup(){
   size(1500, 1000);
-  x_origin = 450;
+  x_origin = 350;
   y_origin = height/2 +200;
   p_origin.x = x_origin;
   p_origin.y = y_origin;
