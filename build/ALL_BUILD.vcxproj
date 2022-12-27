@@ -177,6 +177,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{52A616D4-0341-37D6-ABC7-45E45C44443C}</Project>
       <Name>bezier_curve_tracking</Name>
     </ProjectReference>
+    <ProjectReference Include="D:\BezierCurveTracking\build\demo_cubic_bezier.vcxproj">
+      <Project>{9F7DCADE-A0CA-3C90-9FF9-02C02DAFC7C2}</Project>
+      <Name>demo_cubic_bezier</Name>
+    </ProjectReference>
     <ProjectReference Include="D:\BezierCurveTracking\build\demo_linear_bezier.vcxproj">
       <Project>{D4B0AE92-1A3E-3A53-BAEA-2DA9E9A00AFC}</Project>
       <Name>demo_linear_bezier</Name>

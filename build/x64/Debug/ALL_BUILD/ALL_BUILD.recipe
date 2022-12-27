@@ -5,6 +5,9 @@
       <FullPath>D:\BezierCurveTracking\build\x64\Debug\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
+      <FullPath>D:\BezierCurveTracking\build\Debug\demo_cubic_bezier.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
       <FullPath>D:\BezierCurveTracking\build\Debug\demo_linear_bezier.exe</FullPath>
     </ProjectOutput>
     <ProjectOutput>

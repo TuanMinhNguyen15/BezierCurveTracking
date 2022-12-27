@@ -1,6 +1,6 @@
 float x_origin;
 float y_origin;
-float scaling = 400;
+float scaling = 300;
 Point p_origin = new Point();
 
 String[] general_data;
@@ -73,6 +73,34 @@ void draw_quadratic_bezier(float x1,float y1,float x2,float y2,float x3,float y3
   beginShape();
   vertex(p1.x,p1.y);
   quadraticVertex(p2.x,p2.y, p3.x,p3.y);
+  endShape();
+}
+
+void draw_cubic_bezier(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4){
+  noFill();
+  
+  Point p1 = new Point();
+  Point p2 = new Point();
+  Point p3 = new Point();
+  Point p4 = new Point();
+  
+  p1.x = x1;
+  p1.y = y1;
+  p2.x = x2;
+  p2.y = y2;
+  p3.x = x3;
+  p3.y = y3;
+  p4.x = x4;
+  p4.y = y4;
+  
+  p1 = transform(p1);
+  p2 = transform(p2);
+  p3 = transform(p3);
+  p4 = transform(p4);
+  
+  beginShape();
+  vertex(p1.x,p1.y);
+  bezierVertex(p2.x,p2.y, p3.x,p3.y,p4.x,p4.y);
   endShape();
 }
 
@@ -162,6 +190,26 @@ void draw_map(){
            
            break;
          case "cubic":
+           data_line = map_data[agent_id][index+1].split(",");
+           cubic_bezier[0] = Float.parseFloat(data_line[0]);
+           cubic_bezier[1] = Float.parseFloat(data_line[1]);
+           
+           data_line = map_data[agent_id][index+2].split(",");
+           cubic_bezier[2] = Float.parseFloat(data_line[0]);
+           cubic_bezier[3] = Float.parseFloat(data_line[1]);
+           
+           data_line = map_data[agent_id][index+3].split(",");
+           cubic_bezier[4] = Float.parseFloat(data_line[0]);
+           cubic_bezier[5] = Float.parseFloat(data_line[1]);
+           
+           data_line = map_data[agent_id][index+4].split(",");
+           cubic_bezier[6] = Float.parseFloat(data_line[0]);
+           cubic_bezier[7] = Float.parseFloat(data_line[1]);
+           
+           draw_cubic_bezier(cubic_bezier[0],cubic_bezier[1],cubic_bezier[2],cubic_bezier[3],cubic_bezier[4],cubic_bezier[5],cubic_bezier[6],cubic_bezier[7]);
+           
+           index = index + 5;
+           
            break;
       }
     }
@@ -219,8 +267,8 @@ void draw_obstacles(){
 
 void setup(){
   size(1500, 1000);
-  x_origin = 350;
-  y_origin = height/2 +200;
+  x_origin = 300;
+  y_origin = height/2;
   p_origin.x = x_origin;
   p_origin.y = y_origin;
   
@@ -252,6 +300,7 @@ void setup(){
 }
 
 void draw(){
+  
   if (tstep < tsteps){
     background(150);
     draw_map();
