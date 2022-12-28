@@ -86,13 +86,11 @@ int main(){
     auto curves = map.get_curves();
     std::vector<std::array<float,2>> control_points;
     for (auto curve : curves){
-        if (curve->bezier_type() == "linear"){
-            fprintf(map_data1, "%s\n","linear");
+        fprintf(map_data1, "%s\n",curve->bezier_type().c_str());
             control_points = curve->get_control_points();
             for (auto control_point : control_points){
                 fprintf(map_data1, "%.2f,%.2f\n",control_point[0],control_point[1]);
             }
-        }
     }
 
     // Obstacles data

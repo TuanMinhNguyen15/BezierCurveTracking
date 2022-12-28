@@ -10,12 +10,13 @@
   - [3. Bezier Curves](#3-bezier-curves)
   - [4. Path Tracking](#4-path-tracking)
   - [5. Obstacle Avoidance](#5-obstacle-avoidance)
-  - [6. Demo](#6-demo)
+  - [**6. Demo**](#6-demo)
     - [6.1. Linear Bezier Tracking](#61-linear-bezier-tracking)
     - [6.2. Quadratic Bezier Tracking](#62-quadratic-bezier-tracking)
-    - [6.3. Obstacle Avoidance](#63-obstacle-avoidance)
-    - [6.4. Multi-agents](#64-multi-agents)
-  - [7. Work-in-Progress and Future Work](#7-work-in-progress-and-future-work)
+    - [6.3. Cubic Bezier Tracking](#63-cubic-bezier-tracking)
+    - [6.4. Obstacle Avoidance](#64-obstacle-avoidance)
+    - [6.5. Multi-agents](#65-multi-agents)
+  - [7. Work-in-Progress](#7-work-in-progress)
 
 ## 1. Problem Statement
 
@@ -181,7 +182,17 @@ In the next 3 scenarios, the robot is NOT placed on the path and is initially he
   <img src="videos/quadraticbezier_demo2.gif" />
 </p>
 
-### 6.3. Obstacle Avoidance
+### 6.3. Cubic Bezier Tracking
+
+<p align="center">
+  <img src="videos/cubicbezier_demo1.gif" />
+</p>
+
+<p align="center">
+  <img src="videos/cubicbezier_demo2.gif" />
+</p>
+
+### 6.4. Obstacle Avoidance
 
 <p align="center">
   <img src="videos/obstacle_avoidance_demo1.gif" />
@@ -191,13 +202,11 @@ In the next 3 scenarios, the robot is NOT placed on the path and is initially he
   <img src="videos/obstacle_avoidance_demo2.gif" />
 </p>
 
-### 6.4. Multi-agents
+### 6.5. Multi-agents
 
 <p align="center">
   <img src="videos/multi_agents_demo.gif" />
 </p>
 
-## 7. Work-in-Progress and Future Work
-Currently, only linear bezier is implemented which, I believe, is enough to construct most paths in mobile robot applications. Quadratic and cubic Bezier curves are in progress. 
-
-In the future, I plan to incorporate obstacle avoidance into the planner using [dynamics modulation](https://github.com/TuanMinhNguyen15/Reactive-Trajectory-Planning-for-Obstacle-Avoidance). However, since a robot might has a minimum turning radius constraint, I concern that dynamics modulation might not guarantee a collision-free path. Therefore, more investigations are needed. 
+## 7. Work-in-Progress
+I am working on incorporating obstacle avoidance into the planner using [dynamics modulation](https://github.com/TuanMinhNguyen15/Reactive-Trajectory-Planning-for-Obstacle-Avoidance). However, since a robot might has a minimum turning radius constraint, I concern that dynamics modulation might not guarantee a collision-free path. Therefore, more investigations are needed. 

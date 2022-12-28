@@ -118,35 +118,23 @@ int main(){
     auto curves = map_robot1.get_curves();
     std::vector<std::array<float,2>> control_points;
     for (auto curve : curves){
-        if (curve->bezier_type() == "linear"){
-            fprintf(map_data1, "%s\n","linear");
+        fprintf(map_data1, "%s\n",curve->bezier_type().c_str());
             control_points = curve->get_control_points();
             for (auto control_point : control_points){
                 fprintf(map_data1, "%.2f,%.2f\n",control_point[0],control_point[1]);
             }
-        }
     }
 
-    curves = map_robot2.get_curves();
     for (auto curve : curves){
-        if (curve->bezier_type() == "linear"){
-            fprintf(map_data2, "%s\n","linear");
+        fprintf(map_data2, "%s\n",curve->bezier_type().c_str());
             control_points = curve->get_control_points();
             for (auto control_point : control_points){
                 fprintf(map_data2, "%.2f,%.2f\n",control_point[0],control_point[1]);
             }
-        }
     }
 
-    // Obstacles data
-    // for(auto obstacle : planner_params.obstacles){
-    //     fprintf(obstacles_data, "%s\n",obstacle->shape().c_str());
-    //     for (auto property : obstacle->properties()){
-    //         fprintf(obstacles_data, "%f\n",property);
-    //     }
-    // }
 
-
+    // Simulation
     robot1_x_current = robot1_x0;
     robot1_y_current = robot1_y0;
     robot1_theta_current = robot1_theta0;

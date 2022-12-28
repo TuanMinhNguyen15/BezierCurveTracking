@@ -41,13 +41,13 @@ int main(){
     FILE *general;
     FILE* data_points1;
     FILE *config_data1,*map_data1,*robot_data1,*planner_data1,*obstacles_data;
-    int tsteps = 700;
+    int tsteps = 400;
     float x_current,y_current,theta_current;
     float vx,vy;
     float x_next,y_next,theta_next;
-    float x0     = -0.5;
-    float y0     = 0.5;
-    float theta0 = -3;
+    float x0     = 1.5;
+    float y0     = 1;
+    float theta0 = 1.57;
 
 
     general         = fopen("../simulation/general.txt","w");

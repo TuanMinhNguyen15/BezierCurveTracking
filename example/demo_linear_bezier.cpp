@@ -17,33 +17,20 @@ int main(){
     // Line2
     line_params.x_start = 1;
     line_params.y_start = 0;
-    line_params.x_end   = 2;
-    line_params.y_end   = 2;
+    line_params.x_end   = 1;
+    line_params.y_end   = 1;
     LinearBezier Line2(line_params);
 
     // Line3
-    line_params.x_start = 2;
-    line_params.y_start = 2;
-    line_params.x_end   = 3;
-    line_params.y_end   = -1;
+    line_params.x_start = 1;
+    line_params.y_start = 1;
+    line_params.x_end   = 2;
+    line_params.y_end   = 1;
     LinearBezier Line3(line_params);
 
-    // Line4
-    line_params.x_start = 3;
-    line_params.y_start = -1;
-    line_params.x_end   = 4;
-    line_params.y_end   = 0;
-    LinearBezier Line4(line_params);
-
-    // Line5
-    line_params.x_start = 4;
-    line_params.y_start = 0;
-    line_params.x_end   = 5;
-    line_params.y_end   = 0;
-    LinearBezier Line5(line_params);
 
     // Create Map
-    Map map({&Line1,&Line2,&Line3,&Line4,&Line5});
+    Map map({&Line1,&Line2,&Line3});
 
     // Setup Path Planner
     PathPlanner::Params planner_params;
@@ -65,7 +52,7 @@ int main(){
     FILE *general;
     FILE* data_points1;
     FILE *config_data1,*map_data1,*robot_data1,*planner_data1,*obstacles_data;
-    int tsteps = 900;
+    int tsteps = 350;
     float x_current,y_current,theta_current;
     float vx,vy;
     float x_next,y_next,theta_next;
@@ -97,13 +84,11 @@ int main(){
     auto curves = map.get_curves();
     std::vector<std::array<float,2>> control_points;
     for (auto curve : curves){
-        if (curve->bezier_type() == "linear"){
-            fprintf(map_data1, "%s\n","linear");
+        fprintf(map_data1, "%s\n",curve->bezier_type().c_str());
             control_points = curve->get_control_points();
             for (auto control_point : control_points){
                 fprintf(map_data1, "%.2f,%.2f\n",control_point[0],control_point[1]);
             }
-        }
     }
 
     
